@@ -1,0 +1,19 @@
+{
+    "username": "intimantest@patronmanager.com.devbox", 
+    "environment": "sandbox", 
+    "project_name": "VolunteersForPatronManager", 
+    "workspace": "/Users/cdcarter", 
+    "org_url": "", 
+    "namespace": "", 
+    "id": "8ZRL9ATTW6FLOMKCXXBFAHFJOB682L83", 
+    "metadata_container": "1dc550000008OwUAAU", 
+    "subscription": [
+        "ApexClass", 
+        "ApexComponent", 
+        "ApexPage", 
+        "ApexTrigger", 
+        "StaticResource", 
+        "CustomObject", 
+        "Profile"
+    ]
+}

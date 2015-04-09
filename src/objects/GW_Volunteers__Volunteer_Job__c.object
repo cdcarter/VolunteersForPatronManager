@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Event_Volunteer_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Volunteer Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Volunteer_sees_show__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Does the volunteer see the show?</description>
+        <externalId>false</externalId>
+        <label>Volunteer sees show</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <recordTypes>
+        <fullName>Volunteer_Job</fullName>
+        <active>true</active>
+        <label>Volunteer Job</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Volunteer_Job_Prototype</fullName>
+        <active>true</active>
+        <label>Volunteer Job Prototype</label>
+    </recordTypes>
+</CustomObject>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Event_Start_Time__c</fullName>
+        <description>This is a &quot;base time&quot; from which the offset on each Shift will be calculated.</description>
+        <externalId>false</externalId>
+        <label>Event Start Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>TicketableEvent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Ticketable Event</label>
+        <referenceTo>PatronTicket__TicketableEvent__c</referenceTo>
+        <relationshipLabel>Campaigns</relationshipLabel>
+        <relationshipName>Campaigns</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Venue__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The venue this prototype campaign can be used for</description>
+        <externalId>false</externalId>
+        <label>Venue</label>
+        <referenceTo>PatronTicket__Venue__c</referenceTo>
+        <relationshipLabel>Campaigns</relationshipLabel>
+        <relationshipName>Campaigns</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <recordTypes>
+        <fullName>Venue_Prototype</fullName>
+        <active>true</active>
+        <label>Venue Prototype</label>
+        <picklistValues>
+            <picklist>Status</picklist>
+            <values>
+                <fullName>Aborted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Planned</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Advertisement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Banner Ads</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partners</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Relations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telemarketing</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+</CustomObject>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>Campaign.Event_Start_Time__c</members>
+		<members>Campaign.TicketableEvent__c</members>
+		<members>Campaign.Venue__c</members>
+		<members>GW_Volunteers__Volunteer_Job__c.Event_Volunteer_Notes__c</members>
+		<members>GW_Volunteers__Volunteer_Job__c.Volunteer_sees_show__c</members>
+		<members>GW_Volunteers__Volunteer_Shift__c.EventInstance__c</members>
+		<members>PatronTicket__EventInstance__c.Volunteer_Shift__c</members>
+		<members>PatronTicket__TicketableEvent__c.Duration_hours__c</members>
+		<members>PatronTicket__TicketableEvent__c.Volunteer_Campaign__c</members>
+		<members>PatronTicket__TicketableEvent__c.Volunteer_Notes__c</members>
+		<name>CustomField</name>
+	</types>
+	<types>
+		<members>Campaign-Volunteer Campaign Prototype Layout</members>
+		<members>GW_Volunteers__Volunteer_Job__c-Volunteer Job Prototype Layout</members>
+		<members>GW_Volunteers__Volunteer_Shift__c-Volunteer Shift Prototype Layout</members>
+		<name>Layout</name>
+	</types>
+	<types>
+		<members>Campaign.Venue_Prototype</members>
+		<members>GW_Volunteers__Volunteer_Job__c.Volunteer_Job</members>
+		<members>GW_Volunteers__Volunteer_Job__c.Volunteer_Job_Prototype</members>
+		<members>GW_Volunteers__Volunteer_Shift__c.Volunteer_Shift</members>
+		<members>GW_Volunteers__Volunteer_Shift__c.Volunteer_Shift_Prototype</members>
+		<name>RecordType</name>
+	</types>
+	<version>31.0</version>
+</Package>

@@ -1,0 +1,7 @@
+<apex:page showHeader="true" sidebar="true" standardController="PatronTicket__TicketableEvent__c" recordSetVar="tes">
+	<apex:pageBlock>
+		<apex:pageBlockTable value="{!tes}" var="te">
+			<apex:column value="{!te.name}"/>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+</apex:page>

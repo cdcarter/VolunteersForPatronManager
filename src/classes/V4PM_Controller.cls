@@ -66,6 +66,11 @@ public with sharing class V4PM_Controller {
 			// for each job find the shifts
 			// for each shift calculate the offset
 			// for each shift create a shift for that EI
+
+			// ACTUALLY NO. YOU NEED TO ITERATE THROUGH EACH CAMPAIGN IN USE
+			// AND THEN CREATE THOSE JOBS ONLY
+			// AND THEN THE SHIFTS
+			// UGH CDCARTER
 		}
 
 		insert newJobs;

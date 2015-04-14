@@ -1,7 +1,9 @@
-<apex:page showHeader="true" sidebar="true" standardController="PatronTicket__TicketableEvent__c" recordSetVar="tes">
+<apex:page showHeader="true" sidebar="true" controller="V4PM_Controller">
 	<apex:pageBlock>
 		<apex:pageBlockTable value="{!tes}" var="te">
-			<apex:column value="{!te.name}"/>
+         	<apex:column>
+              <apex:outputLink value="{!URLFOR($Page.V4PM_EventWizard,'',[id=te.Id])}">{!te.Name}</apex:outputLink>
+         	</apex:column>
 		</apex:pageBlockTable>
 	</apex:pageBlock>
 </apex:page>

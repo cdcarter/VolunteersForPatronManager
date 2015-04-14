@@ -1,0 +1,23 @@
+<apex:page showHeader="true" sidebar="true" controller="V4PM_Controller">
+	<apex:form>
+	<apex:pageBlock title="Volunteer Event Wizard">
+		<apex:pageBlockSection title="{!ticketableEvent.Name}">
+		<apex:pageBlockTable title="{!ticketableEvent.Name}" value="{!eventInstances}" var="ei">
+			<apex:column headerValue="Build">
+				<apex:inputCheckbox/>
+			</apex:column>
+			<apex:column value="{!ei.Name}"/>
+			<apex:column value="{!ei.PatronTicket__Venue__c}"/>
+			<apex:column headerValue="Campaign">
+				<apex:selectList multiselect="false" size="1" id="list" >
+					<apex:selectOptions value="{!prototypes}"/>
+				</apex:selectList>
+			</apex:column>
+		</apex:pageBlockTable>
+		</apex:pageBlockSection>
+		<apex:pageBlockButtons location="bottom">
+		<apex:commandButton value="Build"/>
+		</apex:pageBlockButtons>
+	</apex:pageBlock>
+	</apex:form>
+</apex:page>

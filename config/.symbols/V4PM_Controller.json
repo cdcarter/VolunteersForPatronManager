@@ -1,0 +1,257 @@
+{
+    "properties": [
+        {
+            "modifiers": [], 
+            "name": "tes", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 44, 
+                "line": 2
+            }, 
+            "type": "LIST"
+        }, 
+        {
+            "modifiers": [], 
+            "name": "ticketableEvent", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 42, 
+                "line": 3
+            }, 
+            "type": "PatronTicket__TicketableEvent__c"
+        }, 
+        {
+            "modifiers": [], 
+            "name": "eventInstances", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 26, 
+                "line": 4
+            }, 
+            "type": "LIST"
+        }, 
+        {
+            "modifiers": [], 
+            "name": "prototypes", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 20, 
+                "line": 5
+            }, 
+            "type": "LIST"
+        }
+    ], 
+    "externalReferences": [], 
+    "innerClasses": [
+        {
+            "properties": [
+                {
+                    "modifiers": [], 
+                    "name": "eventInstance", 
+                    "visibility": "PUBLIC", 
+                    "references": [], 
+                    "location": {
+                        "column": 41, 
+                        "line": 32
+                    }, 
+                    "type": "PatronTicket__EventInstance__c"
+                }, 
+                {
+                    "modifiers": [], 
+                    "name": "idx", 
+                    "visibility": "PUBLIC", 
+                    "references": [], 
+                    "location": {
+                        "column": 18, 
+                        "line": 33
+                    }, 
+                    "type": "Integer"
+                }, 
+                {
+                    "modifiers": [], 
+                    "name": "campaign", 
+                    "visibility": "PUBLIC", 
+                    "references": [], 
+                    "location": {
+                        "column": 19, 
+                        "line": 34
+                    }, 
+                    "type": "Campaign"
+                }
+            ], 
+            "externalReferences": [], 
+            "innerClasses": [], 
+            "interfaces": [], 
+            "constructors": [
+                {
+                    "modifiers": [], 
+                    "name": "eiInstance", 
+                    "parameters": [
+                        {
+                            "type": "PatronTicket__EventInstance__c", 
+                            "name": "ei"
+                        }, 
+                        {
+                            "type": "Integer", 
+                            "name": "i"
+                        }
+                    ], 
+                    "visibility": "PUBLIC", 
+                    "references": [], 
+                    "location": {
+                        "column": 10, 
+                        "line": 35
+                    }, 
+                    "type": null
+                }
+            ], 
+            "namespace": null, 
+            "name": "eiInstance", 
+            "tableDeclaration": {
+                "type": "eiInstance", 
+                "modifiers": [], 
+                "references": [], 
+                "location": {
+                    "column": 15, 
+                    "line": 31
+                }, 
+                "name": "eiInstance"
+            }, 
+            "key": null, 
+            "variables": [
+                {
+                    "type": "PatronTicket__EventInstance__c", 
+                    "modifiers": [], 
+                    "references": [], 
+                    "location": {
+                        "column": 52, 
+                        "line": 35
+                    }, 
+                    "name": "ei"
+                }, 
+                {
+                    "type": "Integer", 
+                    "modifiers": [], 
+                    "references": [], 
+                    "location": {
+                        "column": 63, 
+                        "line": 35
+                    }, 
+                    "name": "i"
+                }
+            ], 
+            "id": null, 
+            "methods": []
+        }
+    ], 
+    "interfaces": [], 
+    "constructors": [
+        {
+            "modifiers": [], 
+            "name": "V4PM_Controller", 
+            "parameters": [], 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 9, 
+                "line": 6
+            }, 
+            "type": null
+        }
+    ], 
+    "namespace": null, 
+    "name": "V4PM_Controller", 
+    "tableDeclaration": {
+        "type": "V4PM_Controller", 
+        "modifiers": [], 
+        "references": [], 
+        "location": {
+            "column": 27, 
+            "line": 1
+        }, 
+        "name": "V4PM_Controller"
+    }, 
+    "key": "01p5500000003OaAAI", 
+    "variables": [
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 10, 
+                "line": 8
+            }, 
+            "name": "id"
+        }, 
+        {
+            "type": "Integer", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 12, 
+                "line": 12
+            }, 
+            "name": "idx"
+        }, 
+        {
+            "type": "PatronTicket__EventInstance__c", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 40, 
+                "line": 13
+            }, 
+            "name": "e"
+        }, 
+        {
+            "type": "LIST", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 22, 
+                "line": 23
+            }, 
+            "name": "options"
+        }, 
+        {
+            "type": "Integer", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 15, 
+                "line": 24
+            }, 
+            "name": "i"
+        }, 
+        {
+            "type": "SelectOption", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 17, 
+                "line": 25
+            }, 
+            "name": "option"
+        }
+    ], 
+    "id": "01p5500000003OaAAI", 
+    "methods": [
+        {
+            "modifiers": [], 
+            "name": "getPrototypes", 
+            "parameters": [], 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 28, 
+                "line": 22
+            }, 
+            "returnType": "LIST", 
+            "type": null
+        }
+    ]
+}

@@ -56,7 +56,7 @@
                     "references": [], 
                     "location": {
                         "column": 41, 
-                        "line": 32
+                        "line": 26
                     }, 
                     "type": "PatronTicket__EventInstance__c"
                 }, 
@@ -67,7 +67,7 @@
                     "references": [], 
                     "location": {
                         "column": 18, 
-                        "line": 33
+                        "line": 27
                     }, 
                     "type": "Integer"
                 }, 
@@ -77,10 +77,21 @@
                     "visibility": "PUBLIC", 
                     "references": [], 
                     "location": {
-                        "column": 19, 
-                        "line": 34
+                        "column": 17, 
+                        "line": 28
                     }, 
-                    "type": "Campaign"
+                    "type": "String"
+                }, 
+                {
+                    "modifiers": [], 
+                    "name": "options", 
+                    "visibility": "PUBLIC", 
+                    "references": [], 
+                    "location": {
+                        "column": 29, 
+                        "line": 29
+                    }, 
+                    "type": "LIST"
                 }
             ], 
             "externalReferences": [], 
@@ -97,14 +108,14 @@
                         }, 
                         {
                             "type": "Integer", 
-                            "name": "i"
+                            "name": "j"
                         }
                     ], 
                     "visibility": "PUBLIC", 
                     "references": [], 
                     "location": {
                         "column": 10, 
-                        "line": 35
+                        "line": 30
                     }, 
                     "type": null
                 }
@@ -117,7 +128,7 @@
                 "references": [], 
                 "location": {
                     "column": 15, 
-                    "line": 31
+                    "line": 25
                 }, 
                 "name": "eiInstance"
             }, 
@@ -129,7 +140,7 @@
                     "references": [], 
                     "location": {
                         "column": 52, 
-                        "line": 35
+                        "line": 30
                     }, 
                     "name": "ei"
                 }, 
@@ -139,9 +150,39 @@
                     "references": [], 
                     "location": {
                         "column": 63, 
+                        "line": 30
+                    }, 
+                    "name": "j"
+                }, 
+                {
+                    "type": "LIST", 
+                    "modifiers": [], 
+                    "references": [], 
+                    "location": {
+                        "column": 19, 
+                        "line": 34
+                    }, 
+                    "name": "prototypes"
+                }, 
+                {
+                    "type": "Integer", 
+                    "modifiers": [], 
+                    "references": [], 
+                    "location": {
+                        "column": 16, 
                         "line": 35
                     }, 
                     "name": "i"
+                }, 
+                {
+                    "type": "SelectOption", 
+                    "modifiers": [], 
+                    "references": [], 
+                    "location": {
+                        "column": 18, 
+                        "line": 36
+                    }, 
+                    "name": "option"
                 }
             ], 
             "id": null, 
@@ -206,51 +247,21 @@
                 "line": 13
             }, 
             "name": "e"
-        }, 
-        {
-            "type": "LIST", 
-            "modifiers": [], 
-            "references": [], 
-            "location": {
-                "column": 22, 
-                "line": 23
-            }, 
-            "name": "options"
-        }, 
-        {
-            "type": "Integer", 
-            "modifiers": [], 
-            "references": [], 
-            "location": {
-                "column": 15, 
-                "line": 24
-            }, 
-            "name": "i"
-        }, 
-        {
-            "type": "SelectOption", 
-            "modifiers": [], 
-            "references": [], 
-            "location": {
-                "column": 17, 
-                "line": 25
-            }, 
-            "name": "option"
         }
     ], 
     "id": "01p5500000003OaAAI", 
     "methods": [
         {
             "modifiers": [], 
-            "name": "getPrototypes", 
+            "name": "submit", 
             "parameters": [], 
             "visibility": "PUBLIC", 
             "references": [], 
             "location": {
-                "column": 28, 
-                "line": 22
+                "column": 23, 
+                "line": 21
             }, 
-            "returnType": "LIST", 
+            "returnType": "PageReference", 
             "type": null
         }
     ]

@@ -5,13 +5,23 @@ public with sharing class V4PM_Controller {
 	public List<eiInstance> eventInstances {get; set;}
 	public Campaign[] prototypes;
 	public V4PM_Controller() {
-		tes = [SELECT Id,Name,PatronTicket__Active__c FROM PatronTicket__TicketableEvent__c WHERE PatronTicket__Active__c = true];
+		tes = [SELECT Id,Name,PatronTicket__Active__c 
+			   FROM PatronTicket__TicketableEvent__c 
+			   WHERE PatronTicket__Active__c = true];
 		String id = ApexPages.CurrentPage().getParameters().get('id');
 		if (String.isNotBlank(id)) {
-			ticketableEvent = [SELECT Id,Name,PatronTicket__Active__c,Volunteer_Campaign__c,Volunteer_Notes__c,PatronTicket__Description__c,PatronTicket__Detail__c,Duration_hours__c FROM PatronTicket__TicketableEvent__c WHERE Id = :id];
+			ticketableEvent = [SELECT Id,Name,PatronTicket__Active__c,Volunteer_Campaign__c,
+							   Volunteer_Notes__c,PatronTicket__Description__c,PatronTicket__Detail__c,
+							   Duration_hours__c FROM PatronTicket__TicketableEvent__c 
+							   WHERE Id = :id];
 			eventInstances = new List<eiInstance>();
 			Integer idx = 0;
-			for (PatronTicket__EventInstance__c e: [SELECT Id,Name,PatronTicket__InstanceDate__c,PatronTicket__Active__c,PatronTicket__Detail__c,PatronTicket__SeatingType__c,PatronTicket__TicketableEvent__c,PatronTicket__Venue__c,Volunteer_Shift__c FROM PatronTicket__EventInstance__c WHERE PatronTicket__TicketableEvent__c = :id]) {
+			for (PatronTicket__EventInstance__c e: [SELECT Id,Name,PatronTicket__InstanceDate__c,
+													PatronTicket__Active__c,PatronTicket__Detail__c,
+													PatronTicket__SeatingType__c,PatronTicket__TicketableEvent__c,
+													PatronTicket__Venue__c,Volunteer_Shift__c 
+													FROM PatronTicket__EventInstance__c 
+													WHERE PatronTicket__TicketableEvent__c = :id]) {
 				eventInstances.add(new eiInstance(e,idx));
 				idx++;
 			}
@@ -27,12 +37,39 @@ public with sharing class V4PM_Controller {
 		volunteerCampaign.Venue__c = eventInstances[0].eventInstance.PatronTicket__Venue__c;
 		volunteerCampaign.IsActive = true;
 		volunteerCampaign.Status = 'Planned';
-		// find the jobs for that volunteer campaign
-		List<GW_Volunteers__Volunteer_Job__c> jobs = [SELECT Id,Name,Event_Volunteer_Notes__c,Volunteer_sees_show__c,GW_Volunteers__Inactive__c,GW_Volunteers__Display_on_Website__c,GW_Volunteers__Description__c,GW_Volunteers__Campaign__c FROM GW_Volunteers__Volunteer_Job__c]; //WHERE GW_Volunteers__Campaign__c =:]
-		// for each job create a job for that TE
-		// for each job find the shifts
-		// for each shift calculate the offset
-		// for each shift create a shift for that EI
+		List<GW_Volunteers__Volunteer_Job__c> newJobs = new List<GW_Volunteers__Volunteer_Job__c>();
+		List<GW_Volunteers__Volunteer_Shift__c> newShifts = new List<GW_Volunteers__Volunteer_Shift__c>();
+		// for each EI
+		insert volunteerCampaign;
+		for(Integer i = 0; i < eventInstances.size(); i++) {
+			eiInstance ei = eventInstances[i];
+			// find the campaign
+			Campaign masterCampaign = [SELECT Id,Name,Event_Start_Time__c FROM Campaign WHERE Id =: ei.campaign];
+			// find the jobs for that volunteer campaign
+			List<GW_Volunteers__Volunteer_Job__c> jobs = [SELECT Id,Name,
+																Volunteer_sees_show__c,GW_Volunteers__Inactive__c,
+																GW_Volunteers__Display_on_Website__c,
+																GW_Volunteers__Description__c,
+																GW_Volunteers__Campaign__c 
+																FROM GW_Volunteers__Volunteer_Job__c 
+																WHERE GW_Volunteers__Campaign__c =:ei.campaign ] ;
+			// for each job create a job for that TE
+			for(Integer j=0; j < jobs.size();j++){
+				newJobs.add(new GW_Volunteers__Volunteer_Job__c(Name=jobs[j].Name+' '+masterCampaign.Name,
+																Event_Volunteer_Notes__c = ticketableEvent.Volunteer_Notes__c,
+																Volunteer_sees_show__c = jobs[j].Volunteer_sees_show__c,
+																GW_Volunteers__Inactive__c = jobs[j].GW_Volunteers__Inactive__c,
+																GW_Volunteers__Display_on_Website__c = jobs[j].GW_Volunteers__Display_on_Website__c,
+																GW_Volunteers__Description__c = jobs[j].GW_Volunteers__Description__c,
+																GW_Volunteers__Campaign__r = volunteerCampaign));
+			}
+			// for each job find the shifts
+			// for each shift calculate the offset
+			// for each shift create a shift for that EI
+		}
+
+		insert newJobs;
+		insert newShifts;
 		return Page.V4PM_Submit;
 	}
 
@@ -45,7 +82,9 @@ public with sharing class V4PM_Controller {
 			idx = j;
 			eventInstance = ei;
 			options = new List<SelectOption>();
-			List<Campaign> prototypes = [SELECT Id,Name FROM Campaign WHERE Venue__c = :eventInstance.PatronTicket__Venue__c];
+			List<Campaign> prototypes = [SELECT Id,Name 
+										 FROM Campaign 
+										 WHERE Venue__c = :eventInstance.PatronTicket__Venue__c];
 			for(Integer i = 0; i < prototypes.size(); i++) {
 				SelectOption option = new SelectOption(prototypes[i].Id,prototypes[i].Name);
 				options.add(option);

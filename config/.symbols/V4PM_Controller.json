@@ -67,7 +67,7 @@
                     "references": [], 
                     "location": {
                         "column": 41, 
-                        "line": 35
+                        "line": 77
                     }, 
                     "type": "PatronTicket__EventInstance__c"
                 }, 
@@ -78,7 +78,7 @@
                     "references": [], 
                     "location": {
                         "column": 18, 
-                        "line": 36
+                        "line": 78
                     }, 
                     "type": "Integer"
                 }, 
@@ -89,7 +89,7 @@
                     "references": [], 
                     "location": {
                         "column": 17, 
-                        "line": 37
+                        "line": 79
                     }, 
                     "type": "String"
                 }, 
@@ -100,7 +100,7 @@
                     "references": [], 
                     "location": {
                         "column": 29, 
-                        "line": 38
+                        "line": 80
                     }, 
                     "type": "LIST"
                 }
@@ -126,7 +126,7 @@
                     "references": [], 
                     "location": {
                         "column": 10, 
-                        "line": 39
+                        "line": 81
                     }, 
                     "type": null
                 }
@@ -139,7 +139,7 @@
                 "references": [], 
                 "location": {
                     "column": 15, 
-                    "line": 34
+                    "line": 76
                 }, 
                 "name": "eiInstance"
             }, 
@@ -151,7 +151,7 @@
                     "references": [], 
                     "location": {
                         "column": 52, 
-                        "line": 39
+                        "line": 81
                     }, 
                     "name": "ei"
                 }, 
@@ -161,7 +161,7 @@
                     "references": [], 
                     "location": {
                         "column": 63, 
-                        "line": 39
+                        "line": 81
                     }, 
                     "name": "j"
                 }, 
@@ -171,7 +171,7 @@
                     "references": [], 
                     "location": {
                         "column": 19, 
-                        "line": 43
+                        "line": 85
                     }, 
                     "name": "prototypes"
                 }, 
@@ -181,7 +181,7 @@
                     "references": [], 
                     "location": {
                         "column": 16, 
-                        "line": 44
+                        "line": 88
                     }, 
                     "name": "i"
                 }, 
@@ -191,7 +191,7 @@
                     "references": [], 
                     "location": {
                         "column": 18, 
-                        "line": 45
+                        "line": 89
                     }, 
                     "name": "option"
                 }
@@ -235,7 +235,7 @@
             "references": [], 
             "location": {
                 "column": 10, 
-                "line": 9
+                "line": 11
             }, 
             "name": "id"
         }, 
@@ -245,7 +245,7 @@
             "references": [], 
             "location": {
                 "column": 12, 
-                "line": 13
+                "line": 18
             }, 
             "name": "idx"
         }, 
@@ -255,7 +255,7 @@
             "references": [], 
             "location": {
                 "column": 40, 
-                "line": 14
+                "line": 19
             }, 
             "name": "e"
         }, 
@@ -265,9 +265,69 @@
             "references": [], 
             "location": {
                 "column": 41, 
-                "line": 26
+                "line": 40
+            }, 
+            "name": "newJobs"
+        }, 
+        {
+            "type": "LIST", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 43, 
+                "line": 41
+            }, 
+            "name": "newShifts"
+        }, 
+        {
+            "type": "Integer", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 15, 
+                "line": 44
+            }, 
+            "name": "i"
+        }, 
+        {
+            "type": "eiInstance", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 15, 
+                "line": 45
+            }, 
+            "name": "ei"
+        }, 
+        {
+            "type": "Campaign", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 13, 
+                "line": 47
+            }, 
+            "name": "masterCampaign"
+        }, 
+        {
+            "type": "LIST", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 42, 
+                "line": 49
             }, 
             "name": "jobs"
+        }, 
+        {
+            "type": "Integer", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 16, 
+                "line": 57
+            }, 
+            "name": "j"
         }
     ], 
     "id": "01p5500000003OaAAI", 
@@ -280,7 +340,7 @@
             "references": [], 
             "location": {
                 "column": 23, 
-                "line": 22
+                "line": 32
             }, 
             "returnType": "PageReference", 
             "type": null

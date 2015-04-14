@@ -1,6 +1,7 @@
 public with sharing class V4PM_Controller {
 	public PatronTicket__TicketableEvent__c[] tes {get; set;}
 	public PatronTicket__TicketableEvent__c ticketableEvent {get; set;}
+	public Campaign volunteerCampaign {get;set;}
 	public List<eiInstance> eventInstances {get; set;}
 	public Campaign[] prototypes;
 	public V4PM_Controller() {
@@ -19,6 +20,19 @@ public with sharing class V4PM_Controller {
 	}
 
 	public PageReference submit(){
+		// create a campaign for the TE
+		volunteerCampaign = new Campaign();
+		volunteerCampaign.Name = ticketableEvent.Name + 'Volunteers';
+		volunteerCampaign.TicketableEvent__c = ticketableEvent.Id;
+		volunteerCampaign.Venue__c = eventInstances[0].eventInstance.PatronTicket__Venue__c;
+		volunteerCampaign.IsActive = true;
+		volunteerCampaign.Status = 'Planned';
+		// find the jobs for that volunteer campaign
+		List<GW_Volunteers__Volunteer_Job__c> jobs = [SELECT Id,Name,Event_Volunteer_Notes__c,Volunteer_sees_show__c,GW_Volunteers__Inactive__c,GW_Volunteers__Display_on_Website__c,GW_Volunteers__Description__c,GW_Volunteers__Campaign__c FROM GW_Volunteers__Volunteer_Job__c]; //WHERE GW_Volunteers__Campaign__c =:]
+		// for each job create a job for that TE
+		// for each job find the shifts
+		// for each shift calculate the offset
+		// for each shift create a shift for that EI
 		return Page.V4PM_Submit;
 	}
 

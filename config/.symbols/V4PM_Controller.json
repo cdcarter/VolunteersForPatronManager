@@ -24,12 +24,23 @@
         }, 
         {
             "modifiers": [], 
+            "name": "volunteerCampaign", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 18, 
+                "line": 4
+            }, 
+            "type": "Campaign"
+        }, 
+        {
+            "modifiers": [], 
             "name": "eventInstances", 
             "visibility": "PUBLIC", 
             "references": [], 
             "location": {
                 "column": 26, 
-                "line": 4
+                "line": 5
             }, 
             "type": "LIST"
         }, 
@@ -40,7 +51,7 @@
             "references": [], 
             "location": {
                 "column": 20, 
-                "line": 5
+                "line": 6
             }, 
             "type": "LIST"
         }
@@ -56,7 +67,7 @@
                     "references": [], 
                     "location": {
                         "column": 41, 
-                        "line": 26
+                        "line": 35
                     }, 
                     "type": "PatronTicket__EventInstance__c"
                 }, 
@@ -67,7 +78,7 @@
                     "references": [], 
                     "location": {
                         "column": 18, 
-                        "line": 27
+                        "line": 36
                     }, 
                     "type": "Integer"
                 }, 
@@ -78,7 +89,7 @@
                     "references": [], 
                     "location": {
                         "column": 17, 
-                        "line": 28
+                        "line": 37
                     }, 
                     "type": "String"
                 }, 
@@ -89,7 +100,7 @@
                     "references": [], 
                     "location": {
                         "column": 29, 
-                        "line": 29
+                        "line": 38
                     }, 
                     "type": "LIST"
                 }
@@ -115,7 +126,7 @@
                     "references": [], 
                     "location": {
                         "column": 10, 
-                        "line": 30
+                        "line": 39
                     }, 
                     "type": null
                 }
@@ -128,7 +139,7 @@
                 "references": [], 
                 "location": {
                     "column": 15, 
-                    "line": 25
+                    "line": 34
                 }, 
                 "name": "eiInstance"
             }, 
@@ -140,7 +151,7 @@
                     "references": [], 
                     "location": {
                         "column": 52, 
-                        "line": 30
+                        "line": 39
                     }, 
                     "name": "ei"
                 }, 
@@ -150,7 +161,7 @@
                     "references": [], 
                     "location": {
                         "column": 63, 
-                        "line": 30
+                        "line": 39
                     }, 
                     "name": "j"
                 }, 
@@ -160,7 +171,7 @@
                     "references": [], 
                     "location": {
                         "column": 19, 
-                        "line": 34
+                        "line": 43
                     }, 
                     "name": "prototypes"
                 }, 
@@ -170,7 +181,7 @@
                     "references": [], 
                     "location": {
                         "column": 16, 
-                        "line": 35
+                        "line": 44
                     }, 
                     "name": "i"
                 }, 
@@ -180,7 +191,7 @@
                     "references": [], 
                     "location": {
                         "column": 18, 
-                        "line": 36
+                        "line": 45
                     }, 
                     "name": "option"
                 }
@@ -199,7 +210,7 @@
             "references": [], 
             "location": {
                 "column": 9, 
-                "line": 6
+                "line": 7
             }, 
             "type": null
         }
@@ -224,7 +235,7 @@
             "references": [], 
             "location": {
                 "column": 10, 
-                "line": 8
+                "line": 9
             }, 
             "name": "id"
         }, 
@@ -234,7 +245,7 @@
             "references": [], 
             "location": {
                 "column": 12, 
-                "line": 12
+                "line": 13
             }, 
             "name": "idx"
         }, 
@@ -244,9 +255,19 @@
             "references": [], 
             "location": {
                 "column": 40, 
-                "line": 13
+                "line": 14
             }, 
             "name": "e"
+        }, 
+        {
+            "type": "LIST", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 41, 
+                "line": 26
+            }, 
+            "name": "jobs"
         }
     ], 
     "id": "01p5500000003OaAAI", 
@@ -259,7 +280,7 @@
             "references": [], 
             "location": {
                 "column": 23, 
-                "line": 21
+                "line": 22
             }, 
             "returnType": "PageReference", 
             "type": null

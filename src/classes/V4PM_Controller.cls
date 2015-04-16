@@ -37,9 +37,10 @@ public with sharing class V4PM_Controller {
 		volunteerCampaign.Venue__c = eis[0].eventInstance.PatronTicket__Venue__c;
 		volunteerCampaign.IsActive = true;
 		volunteerCampaign.Status = 'Planned';
+		volunteerCampaign.RecordTypeId = [Select Id From RecordType Where SObjectType = 'Campaign' And DeveloperName='Volunteers_Campaign'].Id;
+		insert volunteerCampaign;
 		List<GW_Volunteers__Volunteer_Job__c> newJobs = new List<GW_Volunteers__Volunteer_Job__c>();
 		List<GW_Volunteers__Volunteer_Shift__c> newShifts = new List<GW_Volunteers__Volunteer_Shift__c>();
-		insert volunteerCampaign;
 
 		// loop through the wrapper collection and split it out into Lists of the data we want
 		List<Id> campaignIds = new List<Id>();

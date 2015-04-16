@@ -4,7 +4,7 @@
 		<apex:pageBlockSection title="{!ticketableEvent.Name}">
 		<apex:pageBlockTable title="{!ticketableEvent.Name}" value="{!eis}" var="ei">
 			<apex:column headerValue="Build">
-				<apex:inputCheckbox/>
+				<apex:inputCheckbox value="{!ei.build}"/>
 			</apex:column>
 			<apex:column value="{!ei.eventInstance.Name}"/>
 			<apex:column value="{!ei.eventInstance.PatronTicket__Venue__c}"/>

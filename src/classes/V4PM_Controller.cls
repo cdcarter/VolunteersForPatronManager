@@ -51,7 +51,8 @@ public with sharing class V4PM_Controller {
 		}
 		
 		// create a set of the prototype campaigns we actually use
-		List<Campaign> campaigns = new List<Campaign>([Select Id,Name,Event_Start_Time__c FROM Campaign WHERE Id IN :campaignIds]);
+		Map<Id,Campaign> campaignMap = new Map<Id,Campaign>([Select Id,Name,Event_Start_Time__c FROM Campaign WHERE Id IN :campaignIds]);
+		List<Campaign> campaigns = campaignMap.values();
 		Map<Id,List<GW_Volunteers__Volunteer_Job__c>> jobMap = new Map<Id,List<GW_Volunteers__Volunteer_Job__c>>();
 		Map<Id,GW_Volunteers__Volunteer_Job__c> prototypeIdToJob = new Map<Id,GW_Volunteers__Volunteer_Job__c>();
 		// iterate through that set, and create the jobs we are using
@@ -65,18 +66,51 @@ public with sharing class V4PM_Controller {
 																WHERE GW_Volunteers__Campaign__c =:campaigns[i].Id];
 			jobMap.put(campaigns[i].Id,jobs);
 			for(Integer j=0; j < jobs.size();j++){
-				newJobs.add(new GW_Volunteers__Volunteer_Job__c(
-							Name=jobs[j].Name+' '+campaigns[i].Name,
-							Event_Volunteer_Notes__c = ticketableEvent.Volunteer_Notes__c,
-							Volunteer_sees_show__c = jobs[j].Volunteer_sees_show__c,
-							GW_Volunteers__Inactive__c = jobs[j].GW_Volunteers__Inactive__c,
-							GW_Volunteers__Display_on_Website__c = jobs[j].GW_Volunteers__Display_on_Website__c,
-							GW_Volunteers__Description__c = jobs[j].GW_Volunteers__Description__c,
-							GW_Volunteers__Campaign__r = volunteerCampaign));
+				GW_Volunteers__Volunteer_Job__c currentJob = new GW_Volunteers__Volunteer_Job__c(
+								Name=jobs[j].Name+' '+campaigns[i].Name,
+								Event_Volunteer_Notes__c = ticketableEvent.Volunteer_Notes__c,
+								Volunteer_sees_show__c = jobs[j].Volunteer_sees_show__c,
+								GW_Volunteers__Inactive__c = jobs[j].GW_Volunteers__Inactive__c,
+								GW_Volunteers__Display_on_Website__c = jobs[j].GW_Volunteers__Display_on_Website__c,
+								GW_Volunteers__Description__c = jobs[j].GW_Volunteers__Description__c,
+								GW_Volunteers__Campaign__c = volunteerCampaign.Id);
+				prototypeIdToJob.put(jobs[j].Id,currentJob);
+				newJobs.add(currentJob);
 			}
 		}
 		insert newJobs;
+
+		// get all the prototype shifts for all represented jobs
+		List<GW_Volunteers__Volunteer_Shift__c> prototypeShifts = new List<GW_Volunteers__Volunteer_shift__c>([
+			SELECT Id,GW_Volunteers__Description__c,GW_Volunteers__Desired_Number_of_Volunteers__c,
+				   GW_Volunteers__Duration__c, GW_Volunteers__Start_Date_Time__c,GW_Volunteers__Total_Volunteers__c,
+				   GW_Volunteers__System_Note__c,GW_Volunteers__Volunteer_Job__c, 
+				   GW_Volunteers__Volunteer_Job__r.GW_Volunteers__Campaign__c,
+				   GW_Volunteers__Volunteer_Job__r.GW_Volunteers__Campaign__r.Event_Start_Time__c
+				   FROM GW_Volunteers__Volunteer_Shift__c
+				   WHERE GW_Volunteers__Volunteer_Job__c IN :new List<Id>(prototypeIdToJob.keySet())]);
+
+		for(Integer i=0; i < eventInstances.size(); i++) {
+			Id campaignId = campaignIds[i];
+			for(Integer j=0; j < prototypeShifts.size();j++){
+				GW_Volunteers__Volunteer_Shift__c proto = prototypeShifts[j];
+				Integer timeDiff = proto.GW_Volunteers__Volunteer_Job__r.GW_Volunteers__Campaign__r.Event_Start_Time__c.millisecond() - proto.GW_Volunteers__Start_Date_Time__c.millisecond();
+				Time newTime = eventInstances[i].PatronTicket__InstanceDate__c.time().addMilliseconds(timeDiff);
+				if (proto.GW_Volunteers__Volunteer_Job__r.GW_Volunteers__Campaign__c == campaignId) {
+					GW_Volunteers__Volunteer_Shift__c shift = new GW_Volunteers__Volunteer_Shift__c(
+						GW_Volunteers__Description__c = proto.GW_Volunteers__Description__c,
+						GW_Volunteers__Desired_Number_of_Volunteers__c = proto.GW_Volunteers__Desired_Number_of_Volunteers__c,
+						GW_Volunteers__Duration__c = proto.GW_Volunteers__Duration__c,
+						GW_Volunteers__Total_Volunteers__c = proto.GW_Volunteers__Total_Volunteers__c,
+						GW_Volunteers__System_Note__c = proto.GW_Volunteers__System_Note__c,
+						GW_Volunteers__Volunteer_Job__c = prototypeIdToJob.get(proto.GW_Volunteers__Volunteer_Job__c).Id,
+						GW_Volunteers__Start_Date_Time__c = DateTime.newInstance(eventInstances[i].PatronTicket__InstanceDate__c.date(),newTime));
+					newShifts.add(shift);
+				}
+			}
+		}
 		
+		insert newShifts;
 
 		// for(Integer i = 0; i < eis.size(); i++) {
 			// for each job create a job for that TE
@@ -91,7 +125,6 @@ public with sharing class V4PM_Controller {
 			// UGH CDCARTER
 		// }
 
-		insert newShifts;
 		return Page.V4PM_Submit;
 	}
 

@@ -1,13 +1,5 @@
 <apex:page showHeader="true" sidebar="true" controller="V4PM_Controller">
 	<apex:pageBlock title="Volunteer Event Wizard">
-	<apex:form>
-		<apex:pageBlockSection title="{!ticketableEvent.Name}">
-		<apex:pageBlockTable title="{!ticketableEvent.Name}" value="{!eventInstances}" var="ei">
-			<apex:column value="{!ei.eventInstance.Name}"/>
-			<apex:column value="{!ei.eventInstance.PatronTicket__Venue__c}"/>
-			<apex:column headerValue="Campaign" value="{!ei.campaign}"/>
-		</apex:pageBlockTable>
-		</apex:pageBlockSection>
-	</apex:form>
+	<h1>ya did it</h1>
 	</apex:pageBlock>
 </apex:page>

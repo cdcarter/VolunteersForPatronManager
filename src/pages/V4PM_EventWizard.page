@@ -2,7 +2,7 @@
 	<apex:form>
 	<apex:pageBlock title="Volunteer Event Wizard">
 		<apex:pageBlockSection title="{!ticketableEvent.Name}">
-		<apex:pageBlockTable title="{!ticketableEvent.Name}" value="{!eventInstances}" var="ei">
+		<apex:pageBlockTable title="{!ticketableEvent.Name}" value="{!eis}" var="ei">
 			<apex:column headerValue="Build">
 				<apex:inputCheckbox/>
 			</apex:column>

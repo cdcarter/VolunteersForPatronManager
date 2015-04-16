@@ -32,7 +32,7 @@ public with sharing class V4PM_Controller {
 	public PageReference submit(){
 		// create a campaign for the TE
 		volunteerCampaign = new Campaign();
-		volunteerCampaign.Name = ticketableEvent.Name + 'Volunteers';
+		volunteerCampaign.Name = ticketableEvent.Name + ' Volunteers';
 		volunteerCampaign.TicketableEvent__c = ticketableEvent.Id;
 		volunteerCampaign.Venue__c = eis[0].eventInstance.PatronTicket__Venue__c;
 		volunteerCampaign.IsActive = true;
@@ -111,19 +111,6 @@ public with sharing class V4PM_Controller {
 		}
 		
 		insert newShifts;
-
-		// for(Integer i = 0; i < eis.size(); i++) {
-			// for each job create a job for that TE
-
-			// for each job find the shifts
-			// for each shift calculate the offset
-			// for each shift create a shift for that EI
-
-			// ACTUALLY NO. YOU NEED TO ITERATE THROUGH EACH CAMPAIGN IN USE
-			// AND THEN CREATE THOSE JOBS ONLY
-			// AND THEN THE SHIFTS
-			// UGH CDCARTER
-		// }
 
 		return Page.V4PM_Submit;
 	}

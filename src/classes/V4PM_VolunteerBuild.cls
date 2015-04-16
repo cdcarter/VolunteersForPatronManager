@@ -77,10 +77,10 @@ public with sharing class V4PM_VolunteerBuild {
 							GW_Volunteers__Description__c = proto.GW_Volunteers__Description__c,
 							GW_Volunteers__Desired_Number_of_Volunteers__c = proto.GW_Volunteers__Desired_Number_of_Volunteers__c,
 							GW_Volunteers__Duration__c = proto.GW_Volunteers__Duration__c,
-							GW_Volunteers__Total_Volunteers__c = proto.GW_Volunteers__Total_Volunteers__c,
 							GW_Volunteers__System_Note__c = proto.GW_Volunteers__System_Note__c,
 							GW_Volunteers__Volunteer_Job__c = prototypeIdToJob.get(proto.GW_Volunteers__Volunteer_Job__c).Id,
-							GW_Volunteers__Start_Date_Time__c = newDateTime);
+							GW_Volunteers__Start_Date_Time__c = newDateTime,
+							EventInstance__c = eventInstances[i].Id);
 						newShifts.add(shift);
 					}
 				}

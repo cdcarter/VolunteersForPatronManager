@@ -19,7 +19,7 @@ public with sharing class V4PM_Controller {
 			for (PatronTicket__EventInstance__c e: [SELECT Id,Name,PatronTicket__InstanceDate__c,
 													PatronTicket__Active__c,PatronTicket__Detail__c,
 													PatronTicket__SeatingType__c,PatronTicket__TicketableEvent__c,
-													PatronTicket__Venue__c,Volunteer_Shift__c 
+													PatronTicket__Venue__c 
 													FROM PatronTicket__EventInstance__c 
 													WHERE PatronTicket__TicketableEvent__c = :id]) {
 				eis.add(new eiInstance(e,idx));

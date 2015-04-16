@@ -7,7 +7,6 @@
 		<members>GW_Volunteers__Volunteer_Job__c.Event_Volunteer_Notes__c</members>
 		<members>GW_Volunteers__Volunteer_Job__c.Volunteer_sees_show__c</members>
 		<members>GW_Volunteers__Volunteer_Shift__c.EventInstance__c</members>
-		<members>PatronTicket__EventInstance__c.Volunteer_Shift__c</members>
 		<members>PatronTicket__TicketableEvent__c.Duration_hours__c</members>
 		<members>PatronTicket__TicketableEvent__c.Volunteer_Campaign__c</members>
 		<members>PatronTicket__TicketableEvent__c.Volunteer_Notes__c</members>

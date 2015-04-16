@@ -35,7 +35,12 @@ public with sharing class V4PM_VolunteerBuild {
 																Volunteer_sees_show__c,GW_Volunteers__Inactive__c,
 																GW_Volunteers__Display_on_Website__c,
 																GW_Volunteers__Description__c,
-																GW_Volunteers__Campaign__c 
+																GW_Volunteers__Campaign__c,
+																GW_Volunteers__Location_Street__c,
+																GW_Volunteers__Location_City__c,
+																GW_Volunteers__Location__c,
+																GW_Volunteers__Location_Zip_Postal_Code__c,
+																GW_Volunteers__Location_Information__c
 																FROM GW_Volunteers__Volunteer_Job__c 
 																WHERE GW_Volunteers__Campaign__c =:c.Id];
 			jobMap.put(c.Id,jobs);
@@ -47,7 +52,12 @@ public with sharing class V4PM_VolunteerBuild {
 								GW_Volunteers__Inactive__c = job.GW_Volunteers__Inactive__c,
 								GW_Volunteers__Display_on_Website__c = job.GW_Volunteers__Display_on_Website__c,
 								GW_Volunteers__Description__c = job.GW_Volunteers__Description__c,
-								GW_Volunteers__Campaign__c = volunteerCampaign.Id);
+								GW_Volunteers__Campaign__c = volunteerCampaign.Id,
+								GW_Volunteers__Location_Street__c = job.GW_Volunteers__Location_Street__c,
+								GW_Volunteers__Location_City__c = job.GW_Volunteers__Location_City__c,
+								GW_Volunteers__Location__c = job.GW_Volunteers__Location__c,
+								GW_Volunteers__Location_Zip_Postal_Code__c = job.GW_Volunteers__Location_Zip_Postal_Code__c,
+								GW_Volunteers__Location_Information__c = job.GW_Volunteers__Location_Information__c);
 				prototypeIdToJob.put(job.Id,currentJob);
 				newJobs.add(currentJob);
 			}

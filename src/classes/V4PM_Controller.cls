@@ -114,7 +114,7 @@ public with sharing class V4PM_Controller {
 		
 		insert newShifts;
 
-		return Page.V4PM_Submit;
+		return new ApexPages.StandardController(volunteerCampaign).view();
 	}
 
 	public class eiInstance {

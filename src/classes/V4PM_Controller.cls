@@ -94,8 +94,9 @@ public with sharing class V4PM_Controller {
 			Id campaignId = campaignIds[i];
 			for(Integer j=0; j < prototypeShifts.size();j++){
 				GW_Volunteers__Volunteer_Shift__c proto = prototypeShifts[j];
-				Integer timeDiff = proto.GW_Volunteers__Volunteer_Job__r.GW_Volunteers__Campaign__r.Event_Start_Time__c.millisecond() - proto.GW_Volunteers__Start_Date_Time__c.millisecond();
-				Time newTime = eventInstances[i].PatronTicket__InstanceDate__c.time().addMilliseconds(timeDiff);
+				Long timeDiff = proto.GW_Volunteers__Volunteer_Job__r.GW_Volunteers__Campaign__r.Event_Start_Time__c.getTime() - proto.GW_Volunteers__Start_Date_Time__c.getTime();
+				Time newTime = eventInstances[i].PatronTicket__InstanceDate__c.time().addMilliseconds(-timeDiff.intValue());
+				DateTime newDateTime = DateTime.newInstance(eventInstances[i].PatronTicket__InstanceDate__c.date(),newTime);
 				if (proto.GW_Volunteers__Volunteer_Job__r.GW_Volunteers__Campaign__c == campaignId) {
 					GW_Volunteers__Volunteer_Shift__c shift = new GW_Volunteers__Volunteer_Shift__c(
 						GW_Volunteers__Description__c = proto.GW_Volunteers__Description__c,
@@ -104,7 +105,7 @@ public with sharing class V4PM_Controller {
 						GW_Volunteers__Total_Volunteers__c = proto.GW_Volunteers__Total_Volunteers__c,
 						GW_Volunteers__System_Note__c = proto.GW_Volunteers__System_Note__c,
 						GW_Volunteers__Volunteer_Job__c = prototypeIdToJob.get(proto.GW_Volunteers__Volunteer_Job__c).Id,
-						GW_Volunteers__Start_Date_Time__c = DateTime.newInstance(eventInstances[i].PatronTicket__InstanceDate__c.date(),newTime));
+						GW_Volunteers__Start_Date_Time__c = newDateTime);
 					newShifts.add(shift);
 				}
 			}

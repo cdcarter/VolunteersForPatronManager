@@ -1,5 +1,0 @@
-<apex:page showHeader="true" sidebar="true" controller="V4PM_Controller">
-	<apex:pageBlock title="Volunteer Event Wizard">
-	<h1>ya did it</h1>
-	</apex:pageBlock>
-</apex:page>

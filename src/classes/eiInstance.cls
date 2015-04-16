@@ -1,11 +1,9 @@
 public class eiInstance {
 	public PatronTicket__EventInstance__c eventInstance {get;set;}
-	public Integer idx {get;set;}
 	public String campaign {get;set;}
 	public Boolean build {get;set;}
 	public List<SelectOption> options {get; set;}
-	public eiInstance(PatronTicket__EventInstance__c ei,Integer j) {
-		idx = j;
+	public eiInstance(PatronTicket__EventInstance__c ei) {
 		eventInstance = ei;
 		options = new List<SelectOption>();
 		List<Campaign> prototypes = [SELECT Id,Name 

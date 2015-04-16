@@ -9,6 +9,8 @@ public with sharing class V4PM_VolunteerBuild {
 		volunteerCampaign.Status = 'Planned';
 		volunteerCampaign.RecordTypeId = [Select Id From RecordType Where SObjectType = 'Campaign' And DeveloperName='Volunteers_Campaign'].Id;
 		insert volunteerCampaign;
+		ticketableEvent.Volunteer_Campaign__c = volunteerCampaign.Id;
+		update ticketableEvent;
 		List<GW_Volunteers__Volunteer_Job__c> newJobs = new List<GW_Volunteers__Volunteer_Job__c>();
 		List<GW_Volunteers__Volunteer_Shift__c> newShifts = new List<GW_Volunteers__Volunteer_Shift__c>();
 

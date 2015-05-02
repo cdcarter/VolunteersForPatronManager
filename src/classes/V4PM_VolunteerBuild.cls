@@ -1,10 +1,10 @@
 public with sharing class V4PM_VolunteerBuild {
-	public static Campaign build(PatronTicket__TicketableEvent__c ticketableEvent,List<eiInstance> eis) {
+	public static Campaign build(PatronTicket__TicketableEvent__c ticketableEvent,Map<PatronTicket__EventInstance__c,Id> eis) {
 		// create a campaign for the TE
 		Campaign volunteerCampaign = new Campaign();
 		volunteerCampaign.Name = ticketableEvent.Name + ' Volunteers';
 		volunteerCampaign.TicketableEvent__c = ticketableEvent.Id;
-		volunteerCampaign.Venue__c = eis[0].eventInstance.PatronTicket__Venue__c;
+		volunteerCampaign.Venue__c = (new List<PatronTicket__EventInstance__c>(eis.keySet()))[0].PatronTicket__Venue__c;
 		volunteerCampaign.IsActive = true;
 		volunteerCampaign.Status = 'Planned';
 		volunteerCampaign.RecordTypeId = [Select Id From RecordType Where SObjectType = 'Campaign' And DeveloperName='Volunteers_Campaign'].Id;
@@ -13,19 +13,9 @@ public with sharing class V4PM_VolunteerBuild {
 		update ticketableEvent;
 		List<GW_Volunteers__Volunteer_Job__c> newJobs = new List<GW_Volunteers__Volunteer_Job__c>();
 		List<GW_Volunteers__Volunteer_Shift__c> newShifts = new List<GW_Volunteers__Volunteer_Shift__c>();
-
-		// loop through the wrapper collection and split it out into Lists of the data we want
-		List<Id> campaignIds = new List<Id>();
-		List<PatronTicket__EventInstance__c> eventInstances = new List<PatronTicket__EventInstance__c>();
-		List<Boolean> builds = new List<Boolean>();
-		for(eiInstance e: eis) {
-			eventInstances.add(e.eventInstance);
-			campaignIds.add(e.campaign);
-			builds.add(e.build);
-		}
 		
 		// create a set of the prototype campaigns we actually use
-		Map<Id,Campaign> campaignMap = new Map<Id,Campaign>([Select Id,Name,Event_Start_Time__c FROM Campaign WHERE Id IN :campaignIds]);
+		Map<Id,Campaign> campaignMap = new Map<Id,Campaign>([Select Id,Name,Event_Start_Time__c FROM Campaign WHERE Id IN :eis.values()]);
 		List<Campaign> campaigns = campaignMap.values();
 		Map<Id,List<GW_Volunteers__Volunteer_Job__c>> jobMap = new Map<Id,List<GW_Volunteers__Volunteer_Job__c>>();
 		Map<Id,GW_Volunteers__Volunteer_Job__c> prototypeIdToJob = new Map<Id,GW_Volunteers__Volunteer_Job__c>();
@@ -74,13 +64,12 @@ public with sharing class V4PM_VolunteerBuild {
 				   FROM GW_Volunteers__Volunteer_Shift__c
 				   WHERE GW_Volunteers__Volunteer_Job__c IN :new List<Id>(prototypeIdToJob.keySet())]);
 
-		for(Integer i=0; i < eventInstances.size(); i++) {
-			if (builds[i]){
-				Id campaignId = campaignIds[i];
+		for(PatronTicket__EventInstance__c eventInstance : eis.keySet()) {
+				Id campaignId = eis.get(eventInstance);
 				for(GW_Volunteers__Volunteer_Shift__c proto: prototypeShifts){
 					Long timeDiff = proto.GW_Volunteers__Volunteer_Job__r.GW_Volunteers__Campaign__r.Event_Start_Time__c.getTime() - proto.GW_Volunteers__Start_Date_Time__c.getTime();
-					Time newTime = eventInstances[i].PatronTicket__InstanceDate__c.time().addMilliseconds(-timeDiff.intValue());
-					DateTime newDateTime = DateTime.newInstance(eventInstances[i].PatronTicket__InstanceDate__c.date(),newTime);
+					Time newTime = eventInstance.PatronTicket__InstanceDate__c.time().addMilliseconds(-timeDiff.intValue());
+					DateTime newDateTime = DateTime.newInstance(eventInstance.PatronTicket__InstanceDate__c.date(),newTime);
 					if (proto.GW_Volunteers__Volunteer_Job__r.GW_Volunteers__Campaign__c == campaignId) {
 						GW_Volunteers__Volunteer_Shift__c shift = new GW_Volunteers__Volunteer_Shift__c(
 							GW_Volunteers__Description__c = proto.GW_Volunteers__Description__c,
@@ -89,11 +78,10 @@ public with sharing class V4PM_VolunteerBuild {
 							GW_Volunteers__System_Note__c = proto.GW_Volunteers__System_Note__c,
 							GW_Volunteers__Volunteer_Job__c = prototypeIdToJob.get(proto.GW_Volunteers__Volunteer_Job__c).Id,
 							GW_Volunteers__Start_Date_Time__c = newDateTime,
-							EventInstance__c = eventInstances[i].Id);
+							EventInstance__c = eventInstance.Id);
 						newShifts.add(shift);
 					}
 				}
-			}
 		}
 		
 		insert newShifts;

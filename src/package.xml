@@ -28,5 +28,9 @@
 		<members>GW_Volunteers__Volunteer_Shift__c.Volunteer_Shift_Prototype</members>
 		<name>RecordType</name>
 	</types>
+	<types>
+        <members>Campaign.Event_Start_Time_required_for_Prototypes</members>
+        <name>ValidationRule</name>
+    </types>
 	<version>31.0</version>
 </Package>

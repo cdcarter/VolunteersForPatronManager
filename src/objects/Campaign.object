@@ -90,4 +90,11 @@
             </values>
         </picklistValues>
     </recordTypes>
+    <validationRules>
+        <fullName>Event_Start_Time_required_for_Prototypes</fullName>
+        <active>true</active>
+        <errorConditionFormula>CONTAINS(&quot;Prototype&quot;, RecordType.Name) &amp;&amp; ISBLANK(Event_Start_Time__c)</errorConditionFormula>
+        <errorDisplayField>Event_Start_Time__c</errorDisplayField>
+        <errorMessage>Event Start Time is a required field for Volunteer Prototype Campaigns, as this field is how we calculate shift start times.</errorMessage>
+    </validationRules>
 </CustomObject>

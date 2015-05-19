@@ -1,0 +1,52 @@
+<apex:page 
+	showHeader="false" 
+	sidebar="false" 
+	standardController="PatronTicket__EventInstance__c"
+	extensions="SGN_ControllerExt"
+	applyHtmlTag="false"
+	applyBodyTag="false"
+	renderAs="pdf"
+>
+
+	<html>
+	<head> 
+		<style>
+			@page {size:landscape;}
+		    table {
+		    	width:100%;
+		    }
+		    table, th, td {
+   			    border: 1px solid black;
+		    }
+		    tr {
+		    	height: 50px;
+		    }
+		    td,th {
+		    	padding: 5px;
+		    	white-space:nowrap;
+		    }
+		    th {
+		    	text-align: center;
+		    }
+		    .signup {width:100%;}
+		</style>
+	</head>
+
+	<body>
+	<h1>Ushers:&nbsp;<apex:outputText value="{!PatronTicket__EventInstance__c.PatronTicket__TicketableEvent__r.Name}"/>&nbsp;<apex:outputText value="{!PatronTicket__EventInstance__c.Name}"/></h1>
+	<table>
+	<tr><th>Job</th><th>Name</th><th>Sign In</th></tr>
+	<apex:repeat value="{!hours}" var="hour">
+		<apex:repeat value="{!hour.GW_Volunteers__Number_of_Volunteers__c}">
+			<tr>
+				<td><apex:outputText value="{!hour.GW_Volunteers__Volunteer_Job__r.Name}"/></td>
+				<td><apex:outputText value="{!hour.GW_Volunteers__Contact__r.FirstName}"/>&nbsp; 
+				<apex:outputText value="{!hour.GW_Volunteers__Contact__r.LastName}"/></td>
+				<td class="signup">&nbsp;</td>
+			</tr>
+		</apex:repeat>
+	</apex:repeat>
+	</table>
+	</body>
+	</html>
+</apex:page>

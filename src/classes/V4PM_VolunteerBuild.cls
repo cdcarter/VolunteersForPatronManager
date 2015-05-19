@@ -36,7 +36,7 @@ public with sharing class V4PM_VolunteerBuild {
 			jobMap.put(c.Id,jobs);
 			for(GW_Volunteers__Volunteer_Job__c job:jobs){
 				GW_Volunteers__Volunteer_Job__c currentJob = new GW_Volunteers__Volunteer_Job__c(
-								Name=job.Name+' '+c.Name,
+								Name=job.Name,
 								Event_Volunteer_Notes__c = ticketableEvent.Volunteer_Notes__c,
 								Volunteer_sees_show__c = job.Volunteer_sees_show__c,
 								GW_Volunteers__Inactive__c = job.GW_Volunteers__Inactive__c,

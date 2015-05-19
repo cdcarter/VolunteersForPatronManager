@@ -33,7 +33,7 @@
 	</head>
 
 	<body>
-	<h1><apex:outputText value="{!PatronTicket__EventInstance__c.PatronTicket__TicketableEvent__r.Name}"/>&nbsp;<apex:outputText value="{!PatronTicket__EventInstance__c.Name}"/></h1>
+	<h1><apex:outputText value="{!PatronTicket__EventInstance__c.PatronTicket__TicketableEvent__r.Name}"/>&nbsp;-&nbsp;<apex:outputText value="{!PatronTicket__EventInstance__c.Name}"/></h1>
 	<table>
 	<tr><th>Job</th><th>Name</th><th>Sign In</th></tr>
 	<apex:repeat value="{!hours}" var="hour">

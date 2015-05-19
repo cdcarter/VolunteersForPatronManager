@@ -11,6 +11,7 @@
 		<members>PatronTicket__TicketableEvent__c.Volunteer_Campaign__c</members>
 		<members>PatronTicket__TicketableEvent__c.Volunteer_Notes__c</members>
 		<members>PatronTicket__TicketableEvent__c.Create_Volunteers_Link__c</members>
+		<members>PatronTicket__EventInstance__c.Roster_Link__c</members>
 		<name>CustomField</name>
 	</types>
 	<types>

@@ -1,0 +1,11 @@
+<apex:page showHeader="true" sidebar="true" standardController="PatronTicket__TicketableEvent__c" recordSetVar="tes">
+	<apex:pageBlock>
+		<apex:pageBlockTable value="{!tes}" var="te">
+			<apex:column>
+				<apex:facet name="header">Name</apex:facet>
+				<a href="{!URLFOR('apex/MGR_Performances',null,[id=te.Id])}"><apex:outputText value="{!te.Name}"/></a>
+			</apex:column>
+			<apex:column value="{!te.Create_Volunteers_Link__c}"></apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+</apex:page>

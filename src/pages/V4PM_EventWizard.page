@@ -1,10 +1,10 @@
 <apex:page showHeader="true" sidebar="true" controller="V4PM_Controller">
 	<apex:form>
 	<apex:pageBlock title="Volunteer Event Wizard">
-		<apex:pageBlockSection title="{!ticketableEvent.Name}">
+		<apex:pageBlockSection title="{!ticketableEvent.Name}" columns="1">
 		<apex:pageBlockTable title="{!ticketableEvent.Name}" value="{!eis}" var="ei">
 			<apex:column headerValue="Build">
-				<apex:inputCheckbox value="{!ei.build}"/>
+				<apex:inputCheckbox selected="true" value="{!ei.build}"/>
 			</apex:column>
 			<apex:column value="{!ei.eventInstance.Name}"/>
 			<apex:column value="{!ei.eventInstance.PatronTicket__Venue__c}"/>

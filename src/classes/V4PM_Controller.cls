@@ -43,6 +43,7 @@ public with sharing class V4PM_Controller {
 		public eiInstance(PatronTicket__EventInstance__c ei) {
 			eventInstance = ei;
 			options = new List<SelectOption>();
+			build = true;
 			List<Campaign> prototypes = [SELECT Id,Name 
 										 FROM Campaign 
 										 WHERE Venue__c = :eventInstance.PatronTicket__Venue__c];

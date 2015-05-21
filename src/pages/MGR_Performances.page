@@ -1,7 +1,6 @@
-<apex:page showHeader="true" sidebar="true" standardController="PatronTicket__EventInstances__c" recordSetVar="eis">
-		<apex:pageBlock>
-		<apex:facet name="header"
-		<apex:pageBlockTable value="{!eis}" var="ei">
+<apex:page showHeader="true" sidebar="true" standardController="PatronTicket__TicketableEvent__c" extensions="MGR_EIExtension">
+		<apex:pageBlock title="{!PatronTicket__TicketableEvent__c.Name}">
+		<apex:pageBlockTable value="{!eventInstances}" var="ei">
 			<apex:column>
 				<apex:facet name="header">Name</apex:facet>
 				<apex:outputText value="{!ei.Name}"/>

@@ -19,9 +19,8 @@ public with sharing class V4PM_VolunteerBuild {
 		List<Campaign> campaigns = campaignMap.values();
 		Map<Id,List<GW_Volunteers__Volunteer_Job__c>> jobMap = new Map<Id,List<GW_Volunteers__Volunteer_Job__c>>();
 		Map<Id,GW_Volunteers__Volunteer_Job__c> prototypeIdToJob = new Map<Id,GW_Volunteers__Volunteer_Job__c>();
-		// iterate through that set, and create the jobs we are using
-		for(Campaign c:campaigns) {
-			List<GW_Volunteers__Volunteer_Job__c> jobs = [SELECT Id,Name,
+
+		List<GW_Volunteers__Volunteer_Job__c> allJobs =	[SELECT Id,Name,
 																Volunteer_sees_show__c,GW_Volunteers__Inactive__c,
 																GW_Volunteers__Display_on_Website__c,
 																GW_Volunteers__Description__c,
@@ -32,24 +31,31 @@ public with sharing class V4PM_VolunteerBuild {
 																GW_Volunteers__Location_Zip_Postal_Code__c,
 																GW_Volunteers__Location_Information__c
 																FROM GW_Volunteers__Volunteer_Job__c 
-																WHERE GW_Volunteers__Campaign__c =:c.Id];
-			jobMap.put(c.Id,jobs);
-			for(GW_Volunteers__Volunteer_Job__c job:jobs){
-				GW_Volunteers__Volunteer_Job__c currentJob = new GW_Volunteers__Volunteer_Job__c(
-								Name=job.Name,
-								Event_Volunteer_Notes__c = ticketableEvent.Volunteer_Notes__c,
-								Volunteer_sees_show__c = job.Volunteer_sees_show__c,
-								GW_Volunteers__Inactive__c = job.GW_Volunteers__Inactive__c,
-								GW_Volunteers__Display_on_Website__c = job.GW_Volunteers__Display_on_Website__c,
-								GW_Volunteers__Description__c = job.GW_Volunteers__Description__c,
-								GW_Volunteers__Campaign__c = volunteerCampaign.Id,
-								GW_Volunteers__Location_Street__c = job.GW_Volunteers__Location_Street__c,
-								GW_Volunteers__Location_City__c = job.GW_Volunteers__Location_City__c,
-								GW_Volunteers__Location__c = job.GW_Volunteers__Location__c,
-								GW_Volunteers__Location_Zip_Postal_Code__c = job.GW_Volunteers__Location_Zip_Postal_Code__c,
-								GW_Volunteers__Location_Information__c = job.GW_Volunteers__Location_Information__c);
-				prototypeIdToJob.put(job.Id,currentJob);
-				newJobs.add(currentJob);
+																WHERE GW_Volunteers__Campaign__c  IN :campaignMap.keySet()];
+
+		// iterate through that set, and create the jobs we are using
+		for(Campaign c:campaigns) {
+
+			jobMap.put(c.Id,new List<GW_Volunteers__Volunteer_Job__c>());
+			for(GW_Volunteers__Volunteer_Job__c job : allJobs){
+				if (job.GW_Volunteers__Campaign__c == c.Id) {
+					GW_Volunteers__Volunteer_Job__c currentJob = new GW_Volunteers__Volunteer_Job__c(
+									Name=job.Name,
+									Event_Volunteer_Notes__c = ticketableEvent.Volunteer_Notes__c,
+									Volunteer_sees_show__c = job.Volunteer_sees_show__c,
+									GW_Volunteers__Inactive__c = job.GW_Volunteers__Inactive__c,
+									GW_Volunteers__Display_on_Website__c = job.GW_Volunteers__Display_on_Website__c,
+									GW_Volunteers__Description__c = job.GW_Volunteers__Description__c,
+									GW_Volunteers__Campaign__c = volunteerCampaign.Id,
+									GW_Volunteers__Location_Street__c = job.GW_Volunteers__Location_Street__c,
+									GW_Volunteers__Location_City__c = job.GW_Volunteers__Location_City__c,
+									GW_Volunteers__Location__c = job.GW_Volunteers__Location__c,
+									GW_Volunteers__Location_Zip_Postal_Code__c = job.GW_Volunteers__Location_Zip_Postal_Code__c,
+									GW_Volunteers__Location_Information__c = job.GW_Volunteers__Location_Information__c);
+					prototypeIdToJob.put(job.Id,currentJob);
+					newJobs.add(currentJob);
+					jobMap.get(c.Id).add(job);
+				}
 			}
 		}
 		insert newJobs;

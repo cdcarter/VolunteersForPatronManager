@@ -9,18 +9,43 @@ public with sharing class V4PM_Controller {
 							   Volunteer_Notes__c,PatronTicket__Description__c,PatronTicket__Detail__c,
 							   Duration_hours__c FROM PatronTicket__TicketableEvent__c 
 							   WHERE Id = :id];
-			List<PatronTicket__EventInstance__c> instances =[SELECT Id,Name,PatronTicket__InstanceDate__c,
-													PatronTicket__Active__c,PatronTicket__Detail__c,
-													PatronTicket__SeatingType__c,PatronTicket__TicketableEvent__c,
-													PatronTicket__Venue__c 
-													FROM PatronTicket__EventInstance__c 
-													WHERE PatronTicket__TicketableEvent__c = :id];
-			List<Id> cids = new List<Id>();
-			for(PatronTicket__EventInstance__c e: instances) {
-				cids.add(e.PatronTicket__Venue__c);
-			}
 			Id rtid = [Select Id From RecordType Where SObjectType = 'Campaign' And DeveloperName='Venue_Prototype'].Id;
-			List<Campaign> campaigns = [SELECT Id,Name FROM Campaign WHERE RecordTypeId =: rtid AND Venue__c IN :cids];
+
+			List<PatronTicket__Venue__c> venues = [Select Id,Name,
+			    (SELECT Id,Name,PatronTicket__InstanceDate__c,
+						PatronTicket__Active__c,PatronTicket__Detail__c,
+						PatronTicket__SeatingType__c,PatronTicket__TicketableEvent__c,
+						PatronTicket__Venue__c
+			     FROM PatronTicket__Event_Instances__r 
+			     WHERE PatronTicket__TicketableEvent__c = :id
+			    ),
+			    (SELECT Id,Name,Venue__c
+			     FROM Campaigns__r
+			     WHERE RecordTypeId =: rtid
+			    )
+			    FROM PatronTicket__Venue__c 
+			    WHERE Id IN 
+			    (SELECT PatronTicket__Venue__c 
+			     FROM PatronTicket__EventInstance__c 
+			     WHERE PatronTicket__TicketableEvent__c = :id
+			    )
+			];
+			
+			List<PatronTicket__EventInstance__c> instances = new List<PatronTicket__EventInstance__c>();
+			List<Campaign> campaigns = new List<Campaign>();
+			
+			for(PatronTicket__Venue__c v:venues) {
+				List<PatronTicket__EventInstance__c> theeis = v.getSobjects('PatronTicket__Event_Instances__r');
+			    if (!theeis.isEmpty()) {
+			    	instances.addAll(theeis);
+			    }
+
+			    List<Campaign> cs = v.getSobjects('Campaigns__r');
+			    if (cs != null ) {
+			    	campaigns.addAll(cs);
+			    }
+			}
+
 			eis = new List<eiInstance>();
 			for (PatronTicket__EventInstance__c e: instances) {
 				eis.add(new eiInstance(e,campaigns));
@@ -51,9 +76,14 @@ public with sharing class V4PM_Controller {
 			eventInstance = ei;
 			options = new List<SelectOption>();
 			build = true;
-			for(Integer i = 0; i < prototypes.size(); i++) {
-				SelectOption option = new SelectOption(prototypes[i].Id,prototypes[i].Name);
-				options.add(option);
+			for(Campaign c:prototypes) {
+				if (c.Venue__c == ei.PatronTicket__Venue__c) {
+					SelectOption option = new SelectOption(c.Id,c.Name);
+					options.add(option);
+				}
+				if (options.isEmpty()) {
+					build = false;
+				}
 			}
 		}
 	}

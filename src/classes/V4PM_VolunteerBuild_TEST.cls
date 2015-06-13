@@ -122,20 +122,27 @@ private class V4PM_VolunteerBuild_TEST
 							   Volunteer_Notes__c,PatronTicket__Description__c,PatronTicket__Detail__c,
 							   Duration_hours__c FROM PatronTicket__TicketableEvent__c 
 							   WHERE Name = 'Party Hardy' LIMIT 1];
-		List<eiInstance> eis = new List<eiInstance>();
+		List<V4PM_Controller.eiInstance> eis = new List<V4PM_Controller.eiInstance>();
 		for (PatronTicket__EventInstance__c e: [SELECT Id,Name,PatronTicket__InstanceDate__c,
 												PatronTicket__Active__c,PatronTicket__Detail__c,
 												PatronTicket__SeatingType__c,PatronTicket__TicketableEvent__c,
 												PatronTicket__Venue__c 
 												FROM PatronTicket__EventInstance__c 
 												WHERE PatronTicket__TicketableEvent__c = :ticketableEvent.Id]) {
-			eis.add(new eiInstance(e));
+			eis.add(new V4PM_Controller.eiInstance(e,new List<Campaign>()));
 		}
 		Id prototype = [SELECT Id,Name 
 						FROM Campaign 
 						WHERE name = 'Volunteers GA' LIMIT 1].Id;
-		for(eiInstance ei:eis) {ei.campaign=prototype;ei.build=true;}
-		Campaign volunteerCampaign = V4PM_VolunteerBuild.build(ticketableEvent,eis);
+		for(V4PM_Controller.eiInstance ei:eis) {ei.campaign=prototype;ei.build=true;}
+
+		Map<PatronTicket__EventInstance__c,Id> eiMap = new Map<PatronTicket__EventInstance__c,Id>();
+		for(V4PM_Controller.eiInstance e: eis) {
+			if (e.build) {
+				eiMap.put(e.eventInstance, (Id)e.campaign);
+			}
+		}
+		Campaign volunteerCampaign = V4PM_VolunteerBuild.build(ticketableEvent,eiMap);
 
 		volunteerCampaign = [SELECT Id,Name,GW_Volunteers__Volunteer_Jobs__c,GW_Volunteers__Volunteer_Shifts__c
 							 FROM Campaign

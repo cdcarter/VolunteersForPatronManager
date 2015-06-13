@@ -9,14 +9,21 @@ public with sharing class V4PM_Controller {
 							   Volunteer_Notes__c,PatronTicket__Description__c,PatronTicket__Detail__c,
 							   Duration_hours__c FROM PatronTicket__TicketableEvent__c 
 							   WHERE Id = :id];
-			eis = new List<eiInstance>();
-			for (PatronTicket__EventInstance__c e: [SELECT Id,Name,PatronTicket__InstanceDate__c,
+			List<PatronTicket__EventInstance__c> instances =[SELECT Id,Name,PatronTicket__InstanceDate__c,
 													PatronTicket__Active__c,PatronTicket__Detail__c,
 													PatronTicket__SeatingType__c,PatronTicket__TicketableEvent__c,
 													PatronTicket__Venue__c 
 													FROM PatronTicket__EventInstance__c 
-													WHERE PatronTicket__TicketableEvent__c = :id]) {
-				eis.add(new eiInstance(e));
+													WHERE PatronTicket__TicketableEvent__c = :id];
+			List<Id> cids = new List<Id>();
+			for(PatronTicket__EventInstance__c e: instances) {
+				cids.add(e.PatronTicket__Venue__c);
+			}
+			Id rtid = [Select Id From RecordType Where SObjectType = 'Campaign' And DeveloperName='Venue_Prototype'].Id;
+			List<Campaign> campaigns = [SELECT Id,Name FROM Campaign WHERE RecordTypeId =: rtid AND Venue__c IN :cids];
+			eis = new List<eiInstance>();
+			for (PatronTicket__EventInstance__c e: instances) {
+				eis.add(new eiInstance(e,campaigns));
 			}
 		}
 		
@@ -40,13 +47,10 @@ public with sharing class V4PM_Controller {
 		public String campaign {get;set;}
 		public Boolean build {get;set;}
 		public List<SelectOption> options {get; set;}
-		public eiInstance(PatronTicket__EventInstance__c ei) {
+		public eiInstance(PatronTicket__EventInstance__c ei, List<Campaign> prototypes) {
 			eventInstance = ei;
 			options = new List<SelectOption>();
 			build = true;
-			List<Campaign> prototypes = [SELECT Id,Name 
-										 FROM Campaign 
-										 WHERE Venue__c = :eventInstance.PatronTicket__Venue__c];
 			for(Integer i = 0; i < prototypes.size(); i++) {
 				SelectOption option = new SelectOption(prototypes[i].Id,prototypes[i].Name);
 				options.add(option);
